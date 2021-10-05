@@ -1,0 +1,1 @@
+Hice las configuraciones que nos indico el profesor ayer y corre el front, pero por el problema del backends no puedo comprobar que si lo haya echo bien. el tema de los servicio agregar, modificar y borrar.

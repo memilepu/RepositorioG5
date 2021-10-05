@@ -1,0 +1,80 @@
+VIDEOS DE CLASE
+
+poblar 7/09
+conexion base de datos 14/09
+
+CODIGO PARA CREAR BASE DE DATOS
+
+create database parqueadero;
+use parqueadero;
+
+create table usuario(
+codigo_usu varchar(15) not null,
+correo_usu varchar(40) not null,
+celular_usu varchar(10) not null,
+nombre_usu varchar(30) not null,
+constraint usuario_pk primary key(codigo_usu));
+create table auto(
+placa_auto varchar(7) not null,
+marca_auto varchar(15) not null,
+estado_auto varchar(30) not null,
+modelo_auto varchar(10) not null,
+constraint auto_pk primary key(placa_auto));
+create table servicio_parqueadero(
+cod_servicio varchar(20) not null,
+fecha_servicio varchar(10) not null,
+hora_ingr_servicio varchar(5) not null,
+hora_sali_servicio varchar(5) not null,
+valor_servicio varchar(10) not null,
+placa_auto varchar(7) not null,
+constraint servicio_parqueadero_pk primary key(cod_servicio),
+constraint servicio_parqueadero_placa_auto_fk foreign key(placa_auto) references auto(placa_auto));
+create table usuario_auto(
+codigo_usu varchar(15) not null,
+placa_auto varchar(7) not null,
+constraint usuario_auto_pk primary key(codigo_usu, placa_auto),
+constraint usuario_auto_codigo_usu_fk foreign key(codigo_usu) references usuario(codigo_usu),
+constraint usuario_auto_placa_auto_fk foreign key(placa_auto) references auto(placa_auto));
+create table cupo(
+cupos varchar(20) not null,
+numero_cupos varchar(20) not null,
+cupos_ocupados varchar(20) not null,
+cupos_disponibles varchar(20) not null,
+cod_servicio varchar(20) not null,
+constraint cupo_pk primary key(cupos),
+constraint cupo_cod_servicio_fk foreign key(cod_servicio) references servicio_parqueadero(cod_servicio));
+
+
+CODIGO PARA POBLAR BASE DE DATOS
+
+use parqueadero;
+insert into usuario values('1','maurojose92@hotmail.com','3003394539','mauro jose madera montes');
+insert into usuario values('2','memilepu@gmail.com','3003394538','camilo andres lovera pinzon');
+insert into usuario values('3','martin.eduardo@homail.com','3003394537','martin eduardo medrano marin');
+insert into usuario values('4','julimurit@gmail.com','3003394536','karolo juliana murillo tellez');
+insert into usuario values('5','sebaloneita@gmail.com','3003394534','Sebastian alonso neita angel');
+
+insert into auto values('fch-502','honda','bien','1992');
+insert into auto values('fch-503','toyota','regular','2000');
+insert into auto values('fch-504','cv','mal','1980');
+insert into auto values('fch-505','ford','bien','1999');
+insert into auto values('fch-506','toyota','bien','2000');
+
+insert into usuario_auto values('1','fch-502');
+insert into usuario_auto values('2','fch-503');
+insert into usuario_auto values('3','fch-504');
+insert into usuario_auto values('4','fch-505');
+insert into usuario_auto values('5','fch-506');
+
+insert into servicio_parqueadero values('001','25/12/2021','8','12','8000','fch-502');
+insert into servicio_parqueadero values('002','26/12/2021','12','14','4000','fch-503');
+insert into servicio_parqueadero values('003','27/12/2021','14','16','4000','fch-504');
+insert into servicio_parqueadero values('004','28/12/2021','17','19','4000','fch-505');
+insert into servicio_parqueadero values('005','29/12/2021','20','22','8000','fch-506');
+
+insert into cupo values('001','30','1','29','001');
+insert into cupo values('002','30','1','29','002');
+insert into cupo values('003','30','1','29','003');
+insert into cupo values('004','30','1','29','004');
+insert into cupo values('005','30','1','29','005');
+
